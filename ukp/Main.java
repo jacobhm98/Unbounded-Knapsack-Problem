@@ -5,7 +5,7 @@
 
 package ukp;
 import java.io.*;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Main{
 	
@@ -18,9 +18,9 @@ public class Main{
 		}	
 		String inputFilePath = args[0];
 		int capacity;
-		Vector<String> names = new Vector<>();
-		Vector<Integer> weights = new Vector<>();
-		Vector<Integer> values = new Vector<>();
+		ArrayList<String> names = new ArrayList<>();
+		ArrayList<Integer> weights = new ArrayList<>();
+		ArrayList<Integer> values = new ArrayList<>();
 		
 		//Read the file we got and update the initialized ds', as they are passed by
 		//reference
@@ -33,7 +33,7 @@ public class Main{
 	
 	//A method which accepts a file location, and three vectors. Reads data from this file and stores it
 	//in the desired datastructures. Returns the total capacity.
-	public static int readData(String inputFilePath, Vector<String> names, Vector<Integer> weight, Vector<Integer> value){
+	public static int readData(String inputFilePath, ArrayList<String> names, ArrayList<Integer> weight, ArrayList<Integer> value){
 		try{
 			BufferedReader in = new BufferedReader(new FileReader(inputFilePath));
 			

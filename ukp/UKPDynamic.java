@@ -3,19 +3,19 @@ package ukp;
 /* A class which computes the maximum worth of a knapsack given a list of options to put in it, with their
  * weights and values, 
  */
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class UKPDynamic{
 	
 	//data structures
 	private int capacity;
-	private Vector<String>  names;
-	private Vector<Integer> weights;
-	private Vector<Integer>  values;
+	private ArrayList<String>  names;
+	private ArrayList<Integer> weights;
+	private ArrayList<Integer>  values;
 	private int maxValue;
 
 	//Constructor. Assign given data structures to this object, and perform the computation.
-	public UKPDynamic(int capacity, Vector<String> names, Vector<Integer> weights, Vector<Integer> values){
+	public UKPDynamic(int capacity, ArrayList<String> names, ArrayList<Integer> weights, ArrayList<Integer> values){
 		this.capacity = capacity;
 		this.names = names;
 		this.weights = weights;
@@ -28,7 +28,7 @@ public class UKPDynamic{
 		return maxValue;
 	}
 
-	private int unboundedKnapSack(int capacity, Vector<String> names, Vector<Integer> weights, Vector<Integer> values){
+	private int unboundedKnapSack(int capacity, ArrayList<String> names, ArrayList<Integer> weights, ArrayList<Integer> values){
 		//where we will dynamically build up the entries to the array
 		int[] maxValueAtWeight = new int[capacity + 1];
 
