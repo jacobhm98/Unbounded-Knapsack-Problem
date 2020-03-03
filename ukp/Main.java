@@ -1,5 +1,8 @@
-/*
+/* A class which reads in the data from a file given as the first argument formatted according to specifications.
+ * Puts the data into suitable datastructures and passes these to UKPDynamic which performs a dynamic computation
+ * of the Unbounded Knapsack Problem.
  */
+
 package ukp;
 import java.io.*;
 import java.util.Vector;
@@ -7,14 +10,24 @@ import java.util.Vector;
 public class Main{
 	
 	public static void main(String[] args){
+		
+		//Initialize data structures
+		if (args.length < 1){
+			System.out.println("provide input file");
+			return;
+		}	
 		String inputFilePath = args[0];
 		int capacity;
 		Vector<String> names = new Vector<>();
 		Vector<Integer> weights = new Vector<>();
 		Vector<Integer> values = new Vector<>();
+		
+		//Read the file we got and update the initialized ds', as they are passed by
+		//reference
 		capacity = readData(inputFilePath, names, weights, values);
+		
+		//perform the computations on the data we received
 		UKPDynamic ukp = new UKPDynamic(capacity, names, weights, values);
-		System.out.print(ukp.getMax());
 	}
 
 	
@@ -23,8 +36,10 @@ public class Main{
 	public static int readData(String inputFilePath, Vector<String> names, Vector<Integer> weight, Vector<Integer> value){
 		try{
 			BufferedReader in = new BufferedReader(new FileReader(inputFilePath));
+			
 			//Find and store total number of impressions for the month
 			int capacity = Integer.parseInt(in.readLine());
+			
 			//read in the rest of the data and store it where we want to
 			String line;
 			while((line = in.readLine()) != null){
@@ -35,12 +50,16 @@ public class Main{
 			}
 			return capacity;
 		}
+		
 		catch(FileNotFoundException e){
 			System.err.println("provide an input file as argument 1!");
 		}
+		
 		catch (IOException e){
 			System.err.println("Input file not formatted correctly");
 		}
+		
 		return -1;
 	}
+
 }
