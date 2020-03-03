@@ -1,6 +1,6 @@
 /*
  */
-
+package ukp;
 import java.io.*;
 import java.util.Vector;
 
@@ -8,12 +8,15 @@ public class Main{
 	
 	public static void main(String[] args){
 		String inputFilePath = args[0];
-		int Capacity;
+		int capacity;
 		Vector<String> names = new Vector<>();
 		Vector<Integer> weights = new Vector<>();
 		Vector<Integer> values = new Vector<>();
-		Capacity = readData(inputFilePath, names, weights, values);
+		capacity = readData(inputFilePath, names, weights, values);
+		UKPDynamic ukp = new UKPDynamic(capacity, names, weights, values);
+		System.out.print(ukp.getMax());
 	}
+
 	
 	//A method which accepts a file location, and three vectors. Reads data from this file and stores it
 	//in the desired datastructures. Returns the total capacity.
@@ -21,7 +24,7 @@ public class Main{
 		try{
 			BufferedReader in = new BufferedReader(new FileReader(inputFilePath));
 			//Find and store total number of impressions for the month
-			int Capacity = Integer.parseInt(in.readLine());
+			int capacity = Integer.parseInt(in.readLine());
 			//read in the rest of the data and store it where we want to
 			String line;
 			while((line = in.readLine()) != null){
@@ -30,7 +33,7 @@ public class Main{
 				weight.add(Integer.parseInt(data[1]));
 				value.add(Integer.parseInt(data[2]));
 			}
-			return Capacity;
+			return capacity;
 		}
 		catch(FileNotFoundException e){
 			System.err.println("provide an input file as argument 1!");
