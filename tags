@@ -9,5 +9,4 @@
 Main	Main.java	/^public class Main{$/;"	c
 Unbounded-Knapsack-Problem	README.md	/^# Unbounded-Knapsack-Problem$/;"	c
 main	Main.java	/^	public static void main(String[] args){$/;"	m	class:Main
-readData	Main.java	/^	public static int readData(String inputFilePath,Vector<String> names, Vector<Integer> weight, V/;"	m	class:Main
-unboundeKnapsack	Main.java	/^package unboundeKnapsack;$/;"	p
+readData	Main.java	/^	public static int readData(String inputFilePath, Vector<String> names, Vector<Integer> weight, /;"	m	class:Main
