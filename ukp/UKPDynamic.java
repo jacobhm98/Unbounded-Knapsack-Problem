@@ -45,7 +45,8 @@ public class UKPDynamic{
 					//If we would get a better totValue by adding value of currElem to
 					//optimal value at currWeight - weight of currElem, we know that
 					//we should update the total value at this point.
-					maxValueAtWeight[i] = max(maxValueAtWeight[i], maxValueAtWeight[i - weights.get(j)] + values.get(j));
+					maxValueAtWeight[i] = max(maxValueAtWeight[i],
+					maxValueAtWeight[i - weights.get(j)] + values.get(j));
 				}
 			}
 		}
