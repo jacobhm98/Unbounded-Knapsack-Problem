@@ -34,11 +34,14 @@ public class UKPDynamic{
 
 		//iterate over all the weights
 		for (int i = 0; i <= capacity; ++i){
+			
 			//for all the weights, iterate over all possible items and
 			//check if its optimal to add current item to knapsack
 			for (int j = 0; j < names.size(); ++j){
+			
 				//so we don't index with "negative weights", array out of bounds
 				if(weights.get(j) <= i){
+					
 					//If we would get a better totValue by adding value of currElem to
 					//optimal value at currWeight - weight of currElem, we know that
 					//we should update the total value at this point.
@@ -49,7 +52,7 @@ public class UKPDynamic{
 		return maxValueAtWeight[capacity];
 	}
 
-	//max of two ints, for readability, for readability
+	//max of two ints, for readability
 	public static int max(int n1, int n2){
 		return (n1 < n2)? n2 : n1;
 	}
