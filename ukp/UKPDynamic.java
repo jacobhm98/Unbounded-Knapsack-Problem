@@ -104,6 +104,7 @@ public class UKPDynamic{
 		}
 
 		//divide each number in arraylist by the gcd, return capacity divided by gcd
+		System.out.println("Reducing all impressions by a factor of " + gcd);
 		for (int i = 0; i < weights.size(); ++i){
 			weights.set(i, weights.get(i)/gcd);
 		}
