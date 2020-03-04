@@ -13,24 +13,35 @@ public class UKPDynamic{
 	private ArrayList<Integer> weights;
 	private ArrayList<Integer>  values;
 	private int maxValue;
+	private int[] numUses;
 
 	//Constructor. Assign given data structures to this object, and perform the computation.
 	public UKPDynamic(int capacity, ArrayList<String> names, ArrayList<Integer> weights, ArrayList<Integer> values){
-		this.capacity = capacity;
-		this.names = names;
-		this.weights = weights;
-		this.values = values;
-		this.maxValue = unboundedKnapSack(capacity, names, weights, values);
+		this.capacity = capacity;	//total impressions we can pump out this month (capacity of knapsack)
+		this.names = names;		//names of customers
+		this.weights = weights;		//number of impressions per order for each customer (same index)
+		this.values = values;		//value of each order, what we look to maximize
+		this.numUses = new int[names.size()];
+		this.maxValue = unboundedKnapSack(capacity, names, weights, values);	//value of optimally filled knapsack, for all weights
 	}
 	
-	//return value of full capacity
+	//return value of entire knapsack
 	public int getMax(){
 		return maxValue;
+	}
+
+	public int[] getNumUses(){
+		return numUses;
 	}
 
 	private int unboundedKnapSack(int capacity, ArrayList<String> names, ArrayList<Integer> weights, ArrayList<Integer> values){
 		//where we will dynamically build up the entries to the array
 		int[] maxValueAtWeight = new int[capacity + 1];
+		int[] elementsAdded = new int[capacity + 1];
+		for (int i = 0; i < maxValueAtWeight.length; ++i){
+			maxValueAtWeight[i] = 0;
+			elementsAdded[i] = -1;
+		}
 
 		//iterate over all the weights
 		for (int i = 0; i <= capacity; ++i){
@@ -45,16 +56,28 @@ public class UKPDynamic{
 					//If we would get a better totValue by adding value of currElem to
 					//optimal value at currWeight - weight of currElem, we know that
 					//we should update the total value at this point.
-					maxValueAtWeight[i] = max(maxValueAtWeight[i],
-					maxValueAtWeight[i - weights.get(j)] + values.get(j));
+					int currentBest = maxValueAtWeight[i];
+					int potentialBetter = maxValueAtWeight[i - weights.get(j)] + values.get(j);
+
+					if (potentialBetter > currentBest){
+						maxValueAtWeight[i] = potentialBetter;
+						elementsAdded[i] = j;
+					}
 				}
 			}
 		}
+		updateFrequencies(elementsAdded);
 		return maxValueAtWeight[capacity];
 	}
 
-	//max of two ints, for readability
-	public static int max(int n1, int n2){
-		return (n1 < n2)? n2 : n1;
+	private void updateFrequencies(int[] elementsAdded){
+		int i = elementsAdded.length - 1;
+		int element = elementsAdded[i];
+		while (element != -1){
+			numUses[element] += 1;
+			i = i - weights.get(element);
+			element = elementsAdded[i];
+		}
 	}
+
 }

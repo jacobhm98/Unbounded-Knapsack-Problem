@@ -52,7 +52,7 @@ public class Main{
 		}
 		
 		catch(FileNotFoundException e){
-			System.err.println("provide an input file as argument 1!");
+			System.err.println("provide an input file as argument!");
 		}
 		
 		catch (IOException e){
