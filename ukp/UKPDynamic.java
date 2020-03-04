@@ -22,7 +22,8 @@ public class UKPDynamic{
 		this.weights = weights;		//number of impressions per order for each customer (same index)
 		this.values = values;		//value of each order, what we look to maximize
 		this.numUses = new int[names.size()]; //array where we will put the number of times each element is used
-		this.maxValue = unboundedKnapSack(capacity, names, weights, values);	//value of optimally filled knapsack, for all weights
+		this.capacity = factorize(capacity, weights);
+		this.maxValue = unboundedKnapSack(this.capacity, this.names, this.weights, this.values);	//value of optimally filled knapsack, for all weights
 	}
 	
 	//return value of entire knapsack
@@ -87,6 +88,44 @@ public class UKPDynamic{
 			//of weight units earlier in the rucksack.
 			i = i - weights.get(element);
 			element = elementsAdded[i];
+		}
+	}
+	
+	//find the greatest commond denominator of the total capacity of the knapsack and
+	//the weights of each individual element. Improves amortized runtime since this problem is
+	//O(W*n) where W = weight/capacity of knapsack, and n is number of elements.
+	private int factorize(int capacity, ArrayList<Integer> weights){
+		int gcd = capacity;
+		for (int i = 0; i < weights.size(); ++i){
+			gcd = findGCD(min(weights.get(i), gcd), max(weights.get(i), gcd));
+			if (gcd == 1){
+				return capacity;
+			}
+		}
+
+		//divide each number in arraylist by the gcd, return capacity divided by gcd
+		for (int i = 0; i < weights.size(); ++i){
+			weights.set(i, weights.get(i)/gcd);
+		}
+		return capacity / gcd;
+	}
+	
+	//helper functions
+	private int max(int a, int b){
+		return (a < b) ? b : a;
+	}
+
+	private int min(int a, int b){
+		return (a < b) ? a : b;
+	}
+
+	//euclids algorithm
+	private int findGCD(int a, int b){
+		if (a == 0){
+			return b;
+		}
+		else{
+			return findGCD(b % a, a);
 		}
 	}
 
