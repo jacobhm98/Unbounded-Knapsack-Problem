@@ -28,8 +28,10 @@ public class Main{
 		
 		//perform the computations on the data we received
 		UKPDynamic ukp = new UKPDynamic(capacity, names, weights, values);
-		int maxValue = ukp.getMax();
-		int[] numUses = ukp.getNumUses();
+		int maxValue = ukp.getMax();	//total value stored in knapsack
+		int[] numUses = ukp.getNumUses();	//array holding number of instances of each element in knapsack
+
+		//print out the necessary information
 		int totalWeights = 0;
 		for (int i = 0; i < numUses.length; ++i){
 			int freq = numUses[i];

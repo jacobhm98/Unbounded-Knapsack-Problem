@@ -58,7 +58,8 @@ public class UKPDynamic{
 					//we should update the total value at this point.
 					int currentBest = maxValueAtWeight[i];
 					int potentialBetter = maxValueAtWeight[i - weights.get(j)] + values.get(j);
-
+					
+					//if we should update current weight, store the element we used to get this more optimal value
 					if (potentialBetter > currentBest){
 						maxValueAtWeight[i] = potentialBetter;
 						elementsAdded[i] = j;
@@ -69,12 +70,21 @@ public class UKPDynamic{
 		updateFrequencies(elementsAdded);
 		return maxValueAtWeight[capacity];
 	}
-
+	
+	//a method which takes an array storing the last element added to the rucksack at each index[i] of the
+	//knapsack which is optimally filled for all weights [i].
 	private void updateFrequencies(int[] elementsAdded){
+		
+		//we need to traverse this backwards to count up all the elements used in
+		//the "trail" that leads us to the optimally filled backpack at max weight
 		int i = elementsAdded.length - 1;
 		int element = elementsAdded[i];
 		while (element != -1){
 			numUses[element] += 1;
+			
+			//the next element of the current "trail" is
+			//located at the current elements amount
+			//of weight units earlier in the rucksack.
 			i = i - weights.get(element);
 			element = elementsAdded[i];
 		}
