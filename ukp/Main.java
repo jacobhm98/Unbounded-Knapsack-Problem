@@ -28,6 +28,16 @@ public class Main{
 		
 		//perform the computations on the data we received
 		UKPDynamic ukp = new UKPDynamic(capacity, names, weights, values);
+		int maxValue = ukp.getMax();
+		int[] numUses = ukp.getNumUses();
+		int totalWeights = 0;
+		for (int i = 0; i < numUses.length; ++i){
+			int freq = numUses[i];
+			totalWeights += weights.get(i) * freq;
+			System.out.println(names.get(i) + "," + freq + "," + weights.get(i) * freq + "," + values.get(i) * freq); 
+		}
+		System.out.println(totalWeights + "," + maxValue);
+
 	}
 
 	
@@ -61,5 +71,4 @@ public class Main{
 		
 		return -1;
 	}
-
 }

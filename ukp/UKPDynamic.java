@@ -21,7 +21,7 @@ public class UKPDynamic{
 		this.names = names;		//names of customers
 		this.weights = weights;		//number of impressions per order for each customer (same index)
 		this.values = values;		//value of each order, what we look to maximize
-		this.numUses = new int[names.size()];
+		this.numUses = new int[names.size()]; //array where we will put the number of times each element is used
 		this.maxValue = unboundedKnapSack(capacity, names, weights, values);	//value of optimally filled knapsack, for all weights
 	}
 	
